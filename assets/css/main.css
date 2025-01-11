@@ -22,7 +22,7 @@
   --background-color: #ffffff; /* Background color for the entire website, including individual sections */
   --default-color: #444444; /* Default color used for the majority of the text content across the entire website */
   --heading-color: #111111; /* Color for headings, subheadings and title throughout the website */
-  --accent-color: #e03a3c; /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
+  --accent-color: #004a80;  /* Accent color that represents your brand on the website. It's used for buttons, links, and other elements that need to stand out */
   --surface-color: #ffffff; /* The surface color is used as a background of boxed elements within sections, such as cards, icon boxes, or other elements that require a visual separation from the global background. */
   --contrast-color: #ffffff; /* Contrast color for text, ensuring readability against backgrounds of accent, heading, or default colors. */
 }
@@ -30,11 +30,11 @@
 /* Nav Menu Colors - The following color variables are used specifically for the navigation menu. They are separate from the global colors to allow for more customization options */
 :root {
   --nav-color: #212529;  /* The default color of the main navmenu links */
-  --nav-hover-color: #e03a3c; /* Applied to main navmenu links when they are hovered over or active */
+  --nav-hover-color: #004a80; /* Applied to main navmenu links when they are hovered over or active */
   --nav-mobile-background-color: #ffffff; /* Used as the background color for mobile navigation menu */
   --nav-dropdown-background-color: #ffffff; /* Used as the background color for dropdown items that appear when hovering over primary navigation items */
   --nav-dropdown-color: #212529; /* Used for navigation links of the dropdown items in the navigation menu. */
-  --nav-dropdown-hover-color: #e03a3c; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
+  --nav-dropdown-hover-color: #004a80; /* Similar to --nav-hover-color, this color is applied to dropdown navigation links when they are hovered over. */
 }
 
 /* Color Presets - These classes override global colors when applied to any section or element, providing reuse of the sam color scheme. */
@@ -98,6 +98,7 @@ h6 {
   margin-bottom: 24px;
   font-weight: 600;
 }
+
 
 .php-email-form .sent-message {
   display: none;
@@ -221,23 +222,30 @@ h6 {
 /*--------------------------------------------------------------
 # Global Header
 --------------------------------------------------------------*/
+/* Header Styling */
 .header {
   color: var(--default-color);
   background-color: var(--background-color);
   padding: 20px 0;
   transition: all 0.5s;
   z-index: 997;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  /* Space out logo and nav */
+  height: 80px;  /* Set height for the header */
+  overflow: hidden;
 }
 
-.header .logo {
-  line-height: 1;
-}
-
+/* Increase logo size only without affecting parent */
 .header .logo img {
-  max-height: 36px;
+  max-height: 300px;  /* Increased logo size */
+  width: auto;        /* Maintain aspect ratio */
   margin-right: 8px;
+  object-fit: contain; /* Prevents distortion */
+  flex-shrink: 0;      /* Prevent logo from resizing the container */
 }
 
+/* Heading Styling (No Changes Applied Here) */
 .header .logo h1 {
   font-size: 32px;
   margin: 0;
@@ -251,40 +259,73 @@ h6 {
   color: var(--accent-color);
 }
 
+/* Button Styling */
 .header .btn-getstarted,
 .header .btn-getstarted:focus {
-  color: var(--contrast-color);
-  background: var(--accent-color);
-  font-size: 14px;
-  padding: 8px 25px;
-  margin: 0 0 0 30px;
-  border-radius: 4px;
-  transition: 0.3s;
+    color: var(--contrast-color);
+    background: var(--accent-color);
+    font-size: 14px;
+    padding: 8px 25px;
+    margin: 0 0 0 30px;
+    border-radius: 4px;
+    transition: 0.3s;
+    display: inline-block; /* Ensure the button is always displayed */
 }
 
 .header .btn-getstarted:hover,
 .header .btn-getstarted:focus:hover {
-  color: var(--contrast-color);
-  background: color-mix(in srgb, var(--accent-color), transparent 15%);
+    color: var(--contrast-color);
+    background: color-mix(in srgb, var(--accent-color), transparent 15%);
 }
 
+.header .mobile-nav-toggle {
+  display: none;  /* Initially hide the mobile nav toggle */
+  font-size: 24px;  /* Ensure it’s big enough to tap */
+}
+
+/* Responsive Design Adjustments */
+
 @media (max-width: 1200px) {
+  .header .mobile-nav-toggle {
+    display: block;  /* Show the hamburger on smaller screens */
+}
   .header .logo {
-    order: 1;
+      order: 1;
   }
 
   .header .btn-getstarted,
   .header .btn-getstarted:focus {
-    order: 2;
-    margin: 0 15px 0 0;
-    padding: 6px 15px;
+      order: 2;
+      margin: 0 15px 0 0;
+      padding: 6px 15px;
   }
 
+  .header .btn-getstarted {
+    order: 2;
+    margin: 0 15px 0 0; /* Adjust margin for mobile */
+    padding: 6px 15px;
+}
+.header .navmenu {
+  order: 3;  /* Move navmenu down */
+  display: block;
+}
+
   .header .navmenu {
-    order: 3;
+      order: 3;
   }
 }
 
+@media (max-width: 576px) {
+  .header .btn-getstarted {
+      padding: 6px 7px;
+      font-size: 12px; /* Adjust button font size for smaller screens */
+  }
+  
+}
+
+
+
+/* Navbar Shadow on Scroll */
 .scrolled .header {
   box-shadow: 0px 0 18px rgba(0, 0, 0, 0.1);
 }
